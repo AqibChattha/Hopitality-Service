@@ -1,0 +1,48 @@
+﻿@model HospitalityService.Models.Domain.User
+
+
+@{
+}
+
+<h1>Profile</h1>
+
+<div>
+    <h2>@Model.Name</h2>
+    <p>Email: @Model.Email</p>
+    <img src="@Url.Action("GetImage", "Account")" alt="@Model.Name" />
+</div>
+
+<hr />
+
+<h3>Edit Profile</h3>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+        <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Profile Picture</label>
+            <input type="file" name="UserImageData" />
+        @Html.ValidationMessageFor(model => model.ImgURL, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+}
