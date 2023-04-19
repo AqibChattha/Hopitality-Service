@@ -24,9 +24,9 @@ namespace HospitalityService.Controllers
                 {
                     var UserHomeVM = new UserHomeVM
                     {
-                        news = await _dbContext.AllNews.Where(o => o.UserId == GlobalVariables.USER_ID).ToListAsync(),
+                        news = await _dbContext.AllNews.ToListAsync(),
                         tasks = await _dbContext.UserTasks.Where(o => o.UserId == GlobalVariables.USER_ID).ToListAsync(),
-                        holidays = await _dbContext.Holidays.Where(o => o.Status == null || o.Status == false).ToListAsync()
+                        holidays = await _dbContext.Holidays.Where(o => (o.Id == GlobalVariables.USER_ID && o.Status == false) || GlobalVariables.IS_ADMIN_LOGGED_IN).ToListAsync()
                     };
                     return View(UserHomeVM);
 				}

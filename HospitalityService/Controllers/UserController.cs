@@ -53,7 +53,6 @@ namespace HospitalityService.Controllers
                             Name = collection["Name"],
                             Email = collection["Email"],
                             Password = collection["Password"],
-                            ImgURL = collection["ImgURL"],
                             UserType = collection["UserType"]
                         };
                         _dbContext.Users.Add(user);
@@ -100,6 +99,14 @@ namespace HospitalityService.Controllers
                         find.ImgURL = collection["ImgURL"].ToString();
                         _dbContext.Update(find);
                         _dbContext.SaveChanges();
+
+                        if (find.Id == GlobalVariables.USER_ID)
+                        {
+                            GlobalVariables.USER_TYPE = find.UserType;
+                            GlobalVariables.IS_ADMIN_LOGGED_IN = find.UserType.Equals(GlobalVariables.ADMIN);
+                            GlobalVariables.USER_NAME = find.Name;
+                            GlobalVariables.USER_IMAGE = find.ImgURL;
+                        }
                     }
                     return RedirectToAction(nameof(Index));
                 }

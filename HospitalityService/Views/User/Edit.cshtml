@@ -1,57 +1,65 @@
 ﻿@model HospitalityService.Models.Domain.User
 
 @{
-    ViewData["Title"] = "Edit";
+	ViewData["Title"] = "Edit";
 }
 
 <div class="vw-95 h-screen overflow-auto bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200 pt-10 pl-20 pb-20 pr-20">
 <div class="display-5">Edit user's details.</div>
 <hr />
 <div class="row justify-content-center">
-    <div class="col-md-4">
-        <form class="mt-5" asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group mt-1">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <label asp-for="ImgURL" class="control-label"></label>
-                <input asp-for="ImgURL" class="form-control" />
-                <span asp-validation-for="ImgURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserType" class="control-label"></label>
-                <select class="form-control" asp-for="UserType">
-                    <option value="ADMIN">Admin</option>
-                    <option value="WAITER">Waiter</option>
-                    <option value="BARTENDER">Bartender</option>
-                    <option value="COMMISWAITER">Commis Waiter</option>
-                    <option value="FOODRUNNER">Food Runner</option>
-                </select>
-                <span asp-validation-for="UserType" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-3 text-end">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4">
+		<div style="text-align: -webkit-center">
+			<buton class="flex items-center justify-center w-50 h-50 overflow-hidden rounded-full cursor-pointer">
+				<img src=@GlobalVariables.USER_IMAGE  alt="">
+			</buton>
+		</div>
+		<form class="mt-5" asp-action="Edit">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group mt-1">
+				<label asp-for="Name" class="control-label"></label>
+				<input asp-for="Name" class="form-control" />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-1">
+				<label asp-for="Email" class="control-label"></label>
+				<input asp-for="Email" class="form-control" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-1">
+				<label asp-for="Password" class="control-label"></label>
+				<input asp-for="Password" class="form-control" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+			<div class="form-group mt-1">
+				<label asp-for="ImgURL" class="control-label"></label>
+				<input asp-for="ImgURL" class="form-control" />
+				<span asp-validation-for="ImgURL" class="text-danger"></span>
+			</div>
+				@if (GlobalVariables.IS_ADMIN_LOGGED_IN)
+				{
+					<div class="form-group">
+						<label asp-for="UserType" class="control-label"></label>
+						<select class="form-control" asp-for="UserType">
+							<option value="ADMIN">Admin</option>
+							<option value="WAITER">Waiter</option>
+							<option value="BARTENDER">Bartender</option>
+							<option value="COMMISWAITER">Commis Waiter</option>
+							<option value="FOODRUNNER">Food Runner</option>
+						</select>
+						<span asp-validation-for="UserType" class="text-danger"></span>
+					</div>
+				}
+			<div class="form-group mt-3 text-end">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
 </div>
 
 <div class="text-center mt-3" style="-webkit-text-stroke:thin; text-decoration-line:overline;">
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Back to List</a>
 </div>
 </div>
 

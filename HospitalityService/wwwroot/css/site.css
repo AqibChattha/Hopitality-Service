@@ -14,8 +14,30 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
     background-image: url(../images/bg-01.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /* gradient light grey */
+    background: rgb(92, 92, 84);
+    height: 10px;
+    border-radius: 10px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
