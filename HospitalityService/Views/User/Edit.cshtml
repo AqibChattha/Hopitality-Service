@@ -11,7 +11,7 @@
 	<div class="col-md-4">
 		<div style="text-align: -webkit-center">
 			<buton class="flex items-center justify-center w-50 h-50 overflow-hidden rounded-full cursor-pointer">
-				<img src=@GlobalVariables.USER_IMAGE  alt="">
+				<img src='@Model.ImgURL'  alt="">
 			</buton>
 		</div>
 		<form class="mt-5" asp-action="Edit">
@@ -57,10 +57,12 @@
 		</form>
 	</div>
 </div>
-
-<div class="text-center mt-3" style="-webkit-text-stroke:thin; text-decoration-line:overline;">
-	<a asp-action="Index">Back to List</a>
-</div>
+@if (GlobalVariables.IS_ADMIN_LOGGED_IN)
+	{
+		<div class="text-center mt-3" style="-webkit-text-stroke:thin; text-decoration-line:overline;">
+			<a asp-action="Index">Back to List</a>
+		</div>
+	}
 </div>
 
 
