@@ -4,55 +4,57 @@
     ViewData["Title"] = "Create";
 }
 
+<div class="container-fluid min-h-screen bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="text-center display-5 pt-5 pb-3">Add a new user.</div>
+            <hr class="mb-4" />
 
-<div class="vw-95 h-screen overflow-auto bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200 pt-10 pl-20 pb-20 pr-20">
-<div class="display-5">Add a new user.</div>
-<hr />
-<div class="row justify-content-center">
-    <div class="col-md-4">
-        <form class="mt-5" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <form asp-action="Create" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" required>
+                    <div class="invalid-feedback">Please provide a name.</div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" required>
+                    <div class="invalid-feedback">Please provide an email.</div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" required>
+                    <div class="invalid-feedback">Please provide a password.</div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ImgURL" class="form-label"></label>
+                    <input asp-for="ImgURL" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UserType" class="form-label"></label>
+                    <select asp-for="UserType" class="form-control">
+                        <option value="ADMIN">Admin</option>
+                        <option value="WAITER">Waiter</option>
+                        <option value="BARTENDER">Bartender</option>
+                        <option value="COMMISWAITER">Commis Waiter</option>
+                        <option value="FOODRUNNER">Food Runner</option>
+                    </select>
+                </div>
+
+                <div class="form-group mt-3 mt-md-0 text-end mt-md-3">
+                    <button type="submit" class="btn btn-primary w-100">Add</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3" style="-webkit-text-stroke:thin; text-decoration-line:overline;">
+                <a asp-action="Index">Back to List</a>
             </div>
-            <div class="form-group mt-1">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <label asp-for="ImgURL" class="control-label"></label>
-                <input asp-for="ImgURL" class="form-control" />
-                <span asp-validation-for="ImgURL" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-1">
-                <label asp-for="UserType" class="control-label"></label>
-                <select class="form-control" asp-for="UserType">
-                    <option value="ADMIN">Admin</option>
-                    <option value="WAITER">Waiter</option>
-                    <option value="BARTENDER">Bartender</option>
-                    <option value="COMMISWAITER">Commis Waiter</option>
-                    <option value="FOODRUNNER">Food Runner</option>
-                </select>
-                <span asp-validation-for="UserType" class="text-danger"></span>
-            </div>
-            <div class="form-group mt-3 text-end">
-                <input type="submit" value="Add" class="btn btn-primary w-20" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div class="text-center mt-3" style="-webkit-text-stroke:thin; text-decoration-line:overline;">
-    <a asp-action="Index">Back to List</a>
-</div>
-</div>
-
-

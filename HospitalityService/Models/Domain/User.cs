@@ -14,5 +14,9 @@ namespace HospitalityService.Models.Domain
 		public string? Password { get; set; }
 		public string? ImgURL { get; set; }
 		public string? UserType { get; set; }
+
+		public virtual ICollection<HolidayRequest> HolidayRequests { get; set; }
+		public virtual ICollection<UserTask> UserTasks { get; set; }
+		public virtual ICollection<News> News { get; set; }
 	}
 }

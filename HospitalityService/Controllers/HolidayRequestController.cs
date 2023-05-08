@@ -97,7 +97,6 @@ namespace HospitalityService.Controllers
                         find.Title = collection["Title"].ToString();
                         find.Description = collection["Description"].ToString();
                         find.Date = Convert.ToDateTime(collection["Date"]);
-                        find.UserId = GlobalVariables.USER_ID;
                         find.Status = Convert.ToBoolean(collection["Status"][0]);
                         find.IsAccepted = Convert.ToBoolean(collection["IsAccepted"][0]);
                         _dbContext.Holidays.Update(find);

@@ -14,6 +14,7 @@ namespace HospitalityService.Models.Domain
         public DateTime? Date { get; set; }
         public bool Status { get; set; }
         public bool IsAccepted { get; set; }
-        public Guid UserId { get; set; }
-    }
+		[ForeignKey("Users")]
+		public Guid UserId { get; set; }
+	}
 }

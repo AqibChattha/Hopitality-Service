@@ -16,6 +16,21 @@ namespace HospitalityService
 		public static string USER_NAME;
 		public static Guid USER_ID;
 		public static string USER_TYPE;
-		public static string USER_IMAGE;
+		private static string _userImage;
+		public static string USER_IMAGE
+		{
+			get
+			{
+				if (string.IsNullOrEmpty(_userImage))
+				{
+					return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScJXWdvwDZC0RF_VSzzP8aXSX9Sc_VPAtuew&usqp=CAU";
+				}
+					return _userImage;
+			}
+			set
+			{
+				_userImage = value;
+			}
+		}
 	}
 }

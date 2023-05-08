@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - HospitalityService</title>
+	<title>Hospitality Service</title>
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/HospitalityService.styles.css" asp-append-version="true" />
@@ -18,59 +18,74 @@
 </head>
 <body>
 	<header>
-	@*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-           <div class="container-fluid">
-               <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">ZEN</a>
-               <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                       aria-expanded="false" aria-label="Toggle navigation">
-                   <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                   <ul class="navbar-nav flex-grow-1">
-                       <li class="nav-item" id="first-nav-item">
-                           <a class="nav-link text-dark rounded-pill text-white bg-gradient" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link text-dark rounded-pill text-white bg-gradient" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link text-dark rounded-pill text-white bg-gradient" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                       </li>
-                   </ul>
-               </div>
-           </div>
-       </nav>*@
-		<div class="flex items-center flex-shrink-0 w-full h-16 px-10 bg-white bg-opacity-75">
-			<svg class="w-8 h-8 text-indigo-600 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 000-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+		<div class="flex items-center flex-shrink-0 w-full h-16 px-4 md:px-10 bg-white bg-opacity-75">
+			<svg id="hamburger-icon" class="w-8 h-8 text-indigo-600 stroke-current md:hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 			</svg>
-			<a class="mx-2 text-sm font-semibold text-indigo-700" asp-area="" asp-controller="Home" asp-action="Index">ZEN</a>
-			<input class="flex items-center h-10 px-4 ml-10 text-sm bg-gray-200 rounded-full focus:outline-none focus:ring" type="search" placeholder="Search for anything…">
-			<div class="ml-10 w-100">				
+			<a class="mx-2 text-sm font-semibold text-indigo-700" href="/">ZEN</a>
+			<div class="flex-1"></div>
 			@if (GlobalVariables.IS_LOGGED_IN)
 			{
-				<a class="mx-2 text-sm font-semibold text-indigo-700" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
-				@if (GlobalVariables.IS_ADMIN_LOGGED_IN)
-				{
-					<a class="mx-2 text-sm font-semibold text-indigo-700" asp-area="" asp-controller="User" asp-action="Index">Users</a>	
-					<a class="mx-2 text-sm font-semibold text-indigo-700" asp-area="" asp-controller="News" asp-action="Index">News</a>					
-				}
-				<a class="mx-2 text-sm font-semibold text-indigo-700" asp-area="" asp-controller="UserTask" asp-action="Index">Tasks</a>
-				<a class="mx-2 text-sm font-semibold text-indigo-700" asp-area="" asp-controller="HolidayRequest" asp-action="Index">Holidays</a>
+				<input id="search-box" class="hidden md:flex items-center h-10 px-4 ml-4 text-sm bg-gray-200 rounded-full focus:outline-none focus:ring" type="search" placeholder="Search for anything…">
+				<div class="hidden md:flex items-center md:ml-10">
+					<a class="mx-2 text-sm font-semibold text-indigo-700" href="/">Dashboard</a>
+					@if (GlobalVariables.IS_ADMIN_LOGGED_IN)
+					{
+						<div class="hidden md:block">
+							<a class="mx-2 text-sm font-semibold text-indigo-700" href="/user">Users</a>
+							<a class="mx-2 text-sm font-semibold text-indigo-700" href="/news">News</a>
+						</div>
+					}
+					<a class="mx-2 text-sm font-semibold text-indigo-700" href="/UserTask">Tasks</a>
+					<a class="mx-2 text-sm font-semibold text-indigo-700" href="/HolidayRequest">Holidays</a>
+					@*<a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700" href="/privacy">Privacy Policy</a>*@
+					<a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700 w-20" href="/Account/logout">Log Out</a>
+					<a href="/user/profile">
+						<buton class="flex items-center justify-center w-8 h-8 ml-4 md:ml-10 overflow-hidden rounded-full cursor-pointer">
+							<img src=@GlobalVariables.USER_IMAGE onerror="this.onerror =null; this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScJXWdvwDZC0RF_VSzzP8aXSX9Sc_VPAtuew&usqp=CAU'" ; alt="User profile image">
+						</buton>
+					</a>
+				</div>
 			}
-				<a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
-			</div>
-			@if (GlobalVariables.IS_LOGGED_IN)
+			else
 			{
-				<a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700 w-20" asp-area="" asp-controller="Account" asp-action="LogOut">Log Out</a>
-				<a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@GlobalVariables.USER_ID">
-					<buton class="flex items-center justify-center w-8 h-8 ml-auto overflow-hidden rounded-full cursor-pointer">
-					<img src=@GlobalVariables.USER_IMAGE  alt="">
-					</buton>
-				</a>
+				<div class="hidden md:block">
+					<a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700" href="/Account/login">Log In</a>
+					@*<a class="mx-2 text-sm font-semibold text-gray-600 hover:text-indigo-700" href="/register">Sign Up</a>*@
+				</div>
 			}
 		</div>
+		<div id="mobile-menu" class="hidden md:hidden bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200">
+			<div class="px-2 pt-2 pb-3 space-y-1">
+				@if (GlobalVariables.IS_LOGGED_IN)
+				{
+					<a class="block px-3 py-2 text-base font-semibold text-indigo-700 rounded hover:bg-gray-200" href="/">Dashboard</a>
+					@*<a class="block px-3 py-2 text-sm font-medium text-gray-500 rounded hover:text-indigo-700 hover:bg-gray-200" href="/privacy">Privacy Policy</a>*@
+					@if (GlobalVariables.IS_ADMIN_LOGGED_IN)
+					{
+						<a class="block px-3 py-2 text-base font-semibold text-indigo-700 rounded hover:bg-gray-200" href="/user">Users</a>
+						<a class="block px-3 py-2 text-base font-semibold text-indigo-700 rounded hover:bg-gray-200" href="/news">News</a>
+					}
+					<a class="block px-3 py-2 text-base font-semibold text-indigo-700 rounded hover:bg-gray-200" href="/UserTask">Tasks</a>
+					<a class="block px-3 py-2 text-base font-semibold text-indigo-700 rounded hover:bg-gray-200" href="/HolidayRequest">Holidays</a>
+					<a class="block px-3 py-2 text-sm font-medium text-gray-500 rounded hover:text-indigo-700 hover:bg-gray-200" href="/Account/logout">Log Out</a>
+					<a href="/user/edit/@GlobalVariables.USER_ID">
+						<div class="block px-3 py-2 text-sm font-medium text-gray-500 rounded hover:text-indigo-700 hover:bg-gray-200">
+							<div class="flex items-center">
+								<img src="@GlobalVariables.USER_IMAGE" alt="" class="w-6 h-6 rounded-full mr-2">
+								<span>Profile</span>
+							</div>
+						</div>
+					</a>
+				}
+				else{
+					<a class="block px-3 py-2 text-sm font-medium text-gray-500 rounded hover:text-indigo-700 hover:bg-gray-200" href="/Account/login">Log In</a>
+					@*<a class="block px-3 py-2 text-sm font-medium text-gray-500 rounded hover:text-indigo-700 hover:bg-gray-200" href="/register">Sign Up</a>*@
+				}
+			</div>
+		</div>
 	</header>
+
 	<div>
 		<main role="main">
 			@RenderBody()
@@ -85,6 +100,28 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script>
+		const hamburgerIcon = document.getElementById('hamburger-icon');
+		const mobileMenu = document.getElementById('mobile-menu');
+
+		hamburgerIcon.addEventListener('click', () => {
+			mobileMenu.classList.toggle('hidden');
+		});
+	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		// Get the search box element
+		var searchBox = document.getElementById("search-box");
+
+		// Add an event listener to capture the "Enter" key press
+		searchBox.addEventListener("keyup", function (event) {
+			if (event.keyCode === 13) { // 13 is the code for "Enter" key
+				event.preventDefault();
+				var searchText = searchBox.value;
+				window.location.href = "/Home/Index?searchedText=" + searchText;
+			}
+		});
+	</script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

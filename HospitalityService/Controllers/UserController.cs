@@ -17,9 +17,9 @@ namespace HospitalityService.Controllers
         // GET: UserController
         public IActionResult Index()
         {
-            if (GlobalVariables.IS_LOGGED_IN)
+            if (GlobalVariables.IS_ADMIN_LOGGED_IN)
             {
-                var userlist = _dbContext.Users.Where(o => !GlobalVariables.ADMIN.Equals(o.UserType)).ToList();
+                var userlist = _dbContext.Users.ToList();
                 return View(userlist);
             }
             return RedirectToAction("Login", "Account");
@@ -28,7 +28,7 @@ namespace HospitalityService.Controllers
         // GET: UserController/Create
         public IActionResult Create()
         {
-            if (GlobalVariables.IS_LOGGED_IN)
+            if (GlobalVariables.IS_ADMIN_LOGGED_IN)
             {
                 return View();
             }
@@ -40,7 +40,7 @@ namespace HospitalityService.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(IFormCollection collection)
         {
-            if (GlobalVariables.IS_LOGGED_IN)
+            if (GlobalVariables.IS_ADMIN_LOGGED_IN)
             {
                 try
                 {
@@ -57,7 +57,7 @@ namespace HospitalityService.Controllers
                         };
                         _dbContext.Users.Add(user);
                         _dbContext.SaveChanges();
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Index", "Home");
                     }
                     TempData["ErrorMessage"] = "User with given email already exists.";
                 }
@@ -72,9 +72,20 @@ namespace HospitalityService.Controllers
         // GET: UserController/Edit/5
         public IActionResult Edit(Guid id)
         {
-            if (GlobalVariables.IS_LOGGED_IN)
+            if (GlobalVariables.IS_ADMIN_LOGGED_IN)
             {
                 var find = _dbContext.Users.Where(o => o.Id.Equals(id)).FirstOrDefault();
+                return View(find);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        // GET: UserController/Profile
+        public IActionResult Profile()
+        {
+            if (GlobalVariables.IS_LOGGED_IN)
+            {
+                var find = _dbContext.Users.Where(o => o.Id.Equals(GlobalVariables.USER_ID)).FirstOrDefault();
                 return View(find);
             }
             return RedirectToAction("Login", "Account");
@@ -108,7 +119,39 @@ namespace HospitalityService.Controllers
                             GlobalVariables.USER_IMAGE = find.ImgURL;
                         }
                     }
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+            return RedirectToAction("Login", "Account");
+        }
+
+        // POST: UserController/Profile/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Profile(Guid id, IFormCollection collection)
+        {
+            if (GlobalVariables.IS_LOGGED_IN && GlobalVariables.USER_ID == id)
+            {
+                try
+                {
+                    var find = _dbContext.Users.Where(o => o.Id.Equals(id)).FirstOrDefault();
+                    if (find != null)
+                    {
+                        find.Name = collection["Name"].ToString();
+                        find.Email = collection["Email"].ToString();
+                        find.Password = collection["Password"].ToString();
+                        find.UserType = find.UserType;
+                        find.ImgURL = collection["ImgURL"].ToString();
+                        _dbContext.Update(find);
+                        _dbContext.SaveChanges();
+                        GlobalVariables.USER_NAME = find.Name;
+                        GlobalVariables.USER_IMAGE = find.ImgURL;
+                    }
+                    return RedirectToAction("Index", "Home");
                 }
                 catch
                 {
@@ -144,7 +187,7 @@ namespace HospitalityService.Controllers
                         _dbContext.Users.Remove(find);
                         _dbContext.SaveChanges();
                     }
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Home");
                 }
                 catch
                 {

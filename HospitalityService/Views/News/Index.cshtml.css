@@ -1,0 +1,31 @@
+﻿.description {
+    white-space: nowrap; /* prevent line breaks */
+    overflow: hidden; /* hide overflow */
+    text-overflow: ellipsis; /* show ellipsis */
+    max-width: 200px; /* adjust this value to your needs */
+}
+
+/* Responsive max-width for all screen sizes */
+@media (min-width: 576px) {
+    .description {
+        max-width: 540px; /* adjust this value to your needs */
+    }
+}
+
+@media (min-width: 768px) {
+    .description {
+        max-width: 720px; /* adjust this value to your needs */
+    }
+}
+
+@media (min-width: 992px) {
+    .description {
+        max-width: 960px; /* adjust this value to your needs */
+    }
+}
+
+@media (min-width: 1200px) {
+    .description {
+        max-width: 1140px; /* adjust this value to your needs */
+    }
+}

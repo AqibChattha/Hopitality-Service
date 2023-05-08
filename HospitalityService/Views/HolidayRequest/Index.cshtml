@@ -4,64 +4,74 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="vw-95 h-screen overflow-auto bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200 pt-10 pl-20 pb-20 pr-20">
- @if (!GlobalVariables.IS_ADMIN_LOGGED_IN)
- {
-     <button class="btn btn-primary float-right">
-         <a asp-action="Create">Create New</a>
-     </button>
- }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                Status
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @if (item.Status)
+<div class="min-h-screen overflow-auto text-gray-700 bg-gradient-to-tr from-blue-200 via-indigo-200 to-pink-200 py-10 px-4 md:px-10">
+    <div class="flex items-center justify-between">
+        <h1 class="text-3xl">Holiday Requests List</h1>
+        <button class="btn btn-primary">
+            <a asp-action="Create">Create New</a>
+        </button>
+    </div>
+    <div class="overflow-x-auto mt-6">
+        <table class="w-full table-auto">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th class="px-4 py-2">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th class="px-4 py-2">
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th class="px-4 py-2">
+                        Status
+                    </th>
+                    <th class="px-4 py-2"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    @if (item.IsAccepted)
-                    {
-                        <p>Accepted</p>
-                    }else
-                    {
-                        <p>Rejected</p>
-                    }   
-                }else
-                {
-                    <p>Under Review</p>
+                    <tr class="border-b-2 border-gray-300">
+                        <td class="px-4 py-2 md:w-1/4">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td class="description px-4 py-2 md:w-1/4">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td class="px-4 py-2 md:w-1/4">
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td class="px-4 py-2 md:w-1/4">
+                            @if (item.Status)
+                            {
+                                @if (item.IsAccepted)
+                                {
+                                    <p>Accepted</p>
+                                }
+                                else
+                                {
+                                    <p>Rejected</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>Under Review</p>
+                            }
+                        </td>
+                        <td class="px-4 py-2">
+                            <div class="flex justify-center">
+                                @if (!item.Status && !GlobalVariables.IS_ADMIN_LOGGED_IN)
+                                {
+                                    <a style="color:darkgreen" asp-action="Edit" asp-route-id="@item.Id">Edit|</a>
+                                    <a style="color:darkred" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
                 }
-            </td>
-            <td>
-                <a style="color:darkgreen" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a style="color:darkred" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
 </div>
